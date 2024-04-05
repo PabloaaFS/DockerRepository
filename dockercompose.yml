@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: mysql:5.7.40  # Utilizamos la imagen específica de MySQL 5.7.40
+    ports:
+      - "3306:3306"  # Mapeamos el puerto 3306 del contenedor al puerto 3306 del host
+    environment:
+      MYSQL_ROOT_PASSWORD: changeit  # Contraseña para el usuario root
+    volumes:
+      - ./db_data:/var/lib/mysql  # Montamos un volumen local para persistir los datos de la base de datos
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest  # Utilizamos la última imagen de phpMyAdmin
+    ports:
+      - "8080:80"  # Mapeamos el puerto 8080 del contenedor al puerto 80 del host
+    environment:
+      PMA_HOST: db  # Especificamos el nombre del host de la base de datos
+      MYSQL_ROOT_PASSWORD: changeit  # Contraseña para el usuario root de MySQL
